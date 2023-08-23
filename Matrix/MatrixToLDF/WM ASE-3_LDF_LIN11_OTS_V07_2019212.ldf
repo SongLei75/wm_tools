@@ -1,0 +1,364 @@
+/*************************************************************************************/
+//
+
+// Description: 
+
+// Created: 
+
+// Author: 
+
+// Version: 
+
+// Vehicle Project: 
+
+//
+
+/*************************************************************************************/
+
+LIN_description_file;
+LIN_protocol_version = "2.0";
+LIN_language_version = "2.0";
+LIN_speed = 19.2 kbps;
+
+Nodes {
+  Master: VCU, 10 ms, 0.5 ms ;
+  Slaves: IBS ;
+}
+
+Signals {
+  U_BATT: 14, 0, IBS, VCU ;
+  I_RANGE: 2, 0, IBS, VCU ;
+  I_BATT: 16, 0, IBS, VCU ;
+  T_BATT: 8, 0, IBS, VCU ;
+  Status_Current: 2, 0, IBS, VCU ;
+  Status_Voltage: 2, 0, IBS, VCU ;
+  Status_Temp: 2, 0, IBS, VCU ;
+  ERROR_Calib: 1, 0, IBS, VCU ;
+  ERROR_Ident: 1, 0, IBS, VCU ;
+  Resp_Error: 1, 0, IBS, VCU ;
+  Flag_Inconsistency: 1, 0, IBS, VCU ;
+  SOC: 8, 0, IBS, VCU ;
+  SOH: 8, 0, IBS, VCU ;
+  DisChargeCurrWU_Sts: 1, 1, IBS, VCU ;
+  ChargeCurrWU_Sts: 1, 1, IBS, VCU ;
+  SOCWU_Sts: 1, 1, IBS, VCU ;
+  DisChargeCurrWU: 1, 0, IBS, VCU ;
+  ChargeCurrWU: 1, 0, IBS, VCU ;
+  SOCWU: 1, 0, IBS, VCU ;
+  SOC_STATE: 2, 0, IBS, VCU ;
+  SOH_STATE: 2, 0, IBS, VCU ;
+  IBS_VoltWakeup: 2, 0, IBS, VCU ;
+  Q_Charge: 16, 0, IBS, VCU ;
+  Q_Discharge: 16, 0, IBS, VCU ;
+  DisChargeCurrWU_Ena: 1, 1, VCU, IBS ;
+  ChargeCurrWU_Ena: 1, 1, VCU, IBS ;
+  SOCWU_Ena: 1, 1, VCU, IBS ;
+  DisChargeCurrWU_Treshold: 8, 145, VCU, IBS ;
+  ChargeCurrWU_Treshold: 8, 30, VCU, IBS ;
+  SOCWU_Treshold: 8, 70, VCU, IBS ;
+  VoltageWU_Ena: 1, 1, VCU, IBS ;
+  VoltageWU_Treshold: 4, 0, VCU, IBS ;
+}
+
+Diagnostic_signals {
+  MasterReqB0: 8, 0 ;
+  MasterReqB1: 8, 0 ;
+  MasterReqB2: 8, 0 ;
+  MasterReqB3: 8, 0 ;
+  MasterReqB4: 8, 0 ;
+  MasterReqB5: 8, 0 ;
+  MasterReqB6: 8, 0 ;
+  MasterReqB7: 8, 0 ;
+  SlaveRespB0: 8, 0 ;
+  SlaveRespB1: 8, 0 ;
+  SlaveRespB2: 8, 0 ;
+  SlaveRespB3: 8, 0 ;
+  SlaveRespB4: 8, 0 ;
+  SlaveRespB5: 8, 0 ;
+  SlaveRespB6: 8, 0 ;
+  SlaveRespB7: 8, 0 ;
+}
+
+
+Frames {
+  IBS_Frame1: 52, IBS, 8 {
+    U_BATT, 0 ;
+    I_RANGE, 14 ;
+    I_BATT, 16 ;
+    T_BATT, 32 ;
+    Status_Current, 48 ;
+    Status_Voltage, 50 ;
+    Status_Temp, 52 ;
+    ERROR_Calib, 54 ;
+    ERROR_Ident, 55 ;
+    Resp_Error, 56 ;
+    Flag_Inconsistency, 57 ;
+  }
+  IBS_Frame2: 53, IBS, 8 {
+    SOC, 0 ;
+    SOH, 32 ;
+    DisChargeCurrWU_Sts, 40 ;
+    ChargeCurrWU_Sts, 41 ;
+    SOCWU_Sts, 42 ;
+    DisChargeCurrWU, 43 ;
+    ChargeCurrWU, 44 ;
+    SOCWU, 45 ;
+    SOC_STATE, 50 ;
+    SOH_STATE, 58 ;
+    IBS_VoltWakeup, 60 ;
+  }
+  IBS_Frame3: 54, IBS, 4 {
+    Q_Charge, 0 ;
+    Q_Discharge, 16 ;
+  }
+  IBS_Frame4: 57, VCU, 4 {
+    DisChargeCurrWU_Ena, 0 ;
+    ChargeCurrWU_Ena, 1 ;
+    SOCWU_Ena, 2 ;
+    DisChargeCurrWU_Treshold, 8 ;
+    ChargeCurrWU_Treshold, 16 ;
+    SOCWU_Treshold, 24 ;
+    VoltageWU_Ena, 3 ;
+    VoltageWU_Treshold, 4 ;
+  }
+}
+
+
+
+Diagnostic_frames {
+  MasterReq: 0x3c {
+    MasterReqB0, 0 ;
+    MasterReqB1, 8 ;
+    MasterReqB2, 16 ;
+    MasterReqB3, 24 ;
+    MasterReqB4, 32 ;
+    MasterReqB5, 40 ;
+    MasterReqB6, 48 ;
+    MasterReqB7, 56 ;
+  }
+  SlaveResp: 0x3d {
+    SlaveRespB0, 0 ;
+    SlaveRespB1, 8 ;
+    SlaveRespB2, 16 ;
+    SlaveRespB3, 24 ;
+    SlaveRespB4, 32 ;
+    SlaveRespB5, 40 ;
+    SlaveRespB6, 48 ;
+    SlaveRespB7, 56 ;
+  }
+}
+
+Node_attributes {
+  IBS{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x47 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = Resp_Error ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    configurable_frames {
+      IBS_Frame1 = 0x0 ;
+      IBS_Frame2 = 0x1 ;
+      IBS_Frame3 = 0x2 ;
+      IBS_Frame4 = 0x39 ;
+    }
+  }
+}
+
+Schedule_tables {
+ Schedule1 {
+    IBS_Frame1 delay 20 ms ;
+    IBS_Frame2 delay 20 ms ;
+    IBS_Frame3 delay 60 ms ;
+    IBS_Frame4 delay 10 ms ;
+  }
+}
+
+
+Signal_encoding_types {
+  U_BATT {
+    physical_value, 0, 16383, 0.0009765625, 3, "V" ;
+  }
+  I_RANGE {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "-1A~1A" ;
+    logical_value, 1, "-200A~200A" ;
+    logical_value, 2, "-1500A~1500A" ;
+    logical_value, 3, "Invalid" ;
+  }
+  I_BATT {
+    physical_value, 0, 65535, 0.0078125, -256, "A" ;
+  }
+  T_BATT {
+    physical_value, 0, 255, 1, -40 ;
+  }
+  Status_Current {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "No error" ;
+    logical_value, 1, "Error Open ciruit" ;
+    logical_value, 2, "HW defect" ;
+    logical_value, 3, "LIN saturation" ;
+  }
+  Status_Voltage {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "No Error" ;
+    logical_value, 1, "Error Open ciruit" ;
+    logical_value, 2, "HW defect (ADC defect)" ;
+    logical_value, 3, "LIN saturation (no HW defect)" ;
+  }
+  Status_Temp {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "No Error" ;
+    logical_value, 1, "not used" ;
+    logical_value, 2, "HW defect (ADC defect)" ;
+    logical_value, 3, "LIN saturation (no HW defect)" ;
+  }
+  ERROR_Calib {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "No Error" ;
+    logical_value, 1, "Error" ;
+  }
+  ERROR_Ident {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "No Error" ;
+    logical_value, 1, "Error" ;
+  }
+  Resp_Error {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "No Error" ;
+    logical_value, 1, "Error" ;
+  }
+  Flag_Inconsistency {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "no battery inconsistency" ;
+    logical_value, 1, "battery inconsistency" ;
+  }
+  SOC {
+    physical_value, 0, 255, 1, 0, "%" ;
+  }
+  SOH {
+    physical_value, 0, 255, 1, 0, "%" ;
+  }
+  DisChargeCurrWU_Sts {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Disable" ;
+    logical_value, 1, "Enable" ;
+  }
+  ChargeCurrWU_Sts {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Disable" ;
+    logical_value, 1, "Enable" ;
+  }
+  SOCWU_Sts {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Disable" ;
+    logical_value, 1, "Enable" ;
+  }
+  DisChargeCurrWU {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "No Wake up with discharge current" ;
+    logical_value, 1, "Wake up with discharge current" ;
+  }
+  ChargeCurrWU {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "No Wake up with charge current" ;
+    logical_value, 1, "Wake up with charge current" ;
+  }
+  SOCWU {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "No Wake up with Low SOC" ;
+    logical_value, 1, "Wake up with Low SOC" ;
+  }
+  SOC_STATE {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "Deviation > 15%" ;
+    logical_value, 1, "Deviation <= 15%" ;
+    logical_value, 2, "Deviation <= 10%" ;
+    logical_value, 3, "Invalid Value" ;
+  }
+  SOH_STATE {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "Deviation > 15%" ;
+    logical_value, 1, "Deviation <= 15%" ;
+    logical_value, 2, "Deviation <= 10%" ;
+    logical_value, 3, "Invalid Value" ;
+  }
+  IBS_VoltWakeup {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "No Wake Up with Low Voltage" ;
+    logical_value, 1, "Wake Up with Low Voltage" ;
+    logical_value, 2, "Invalid" ;
+    logical_value, 3, "Invalid" ;
+  }
+  Q_Charge {
+    physical_value, 0, 65535, 0.125, 0, "Ah" ;
+  }
+  Q_Discharge {
+    physical_value, 0, 65535, 0.125, 0, "Ah" ;
+  }
+  DisChargeCurrWU_Ena {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Disable" ;
+    logical_value, 1, "Enable" ;
+  }
+  ChargeCurrWU_Ena {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Disable" ;
+    logical_value, 1, "Enable" ;
+  }
+  SOCWU_Ena {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Disable" ;
+    logical_value, 1, "Enable" ;
+  }
+  DisChargeCurrWU_Treshold {
+    physical_value, 0, 250, 2, 10, "mA" ;
+  }
+  ChargeCurrWU_Treshold {
+    physical_value, 0, 250, 10, 0, "mA" ;
+  }
+  SOCWU_Treshold {
+    physical_value, 50, 80, 1, 0, "%" ;
+  }
+  VoltageWU_Ena {
+    physical_value, 0, 1, 1, 0 ;
+  }
+  VoltageWU_Treshold {
+    physical_value, 0, 15, 0.1, 11.5, "V" ;
+  }
+}
+
+Signal_representation {
+  ChargeCurrWU: ChargeCurrWU ;
+  ChargeCurrWU_Ena: ChargeCurrWU_Ena ;
+  ChargeCurrWU_Sts: ChargeCurrWU_Sts ;
+  ChargeCurrWU_Treshold: ChargeCurrWU_Treshold ;
+  DisChargeCurrWU: DisChargeCurrWU ;
+  DisChargeCurrWU_Ena: DisChargeCurrWU_Ena ;
+  DisChargeCurrWU_Sts: DisChargeCurrWU_Sts ;
+  DisChargeCurrWU_Treshold: DisChargeCurrWU_Treshold ;
+  ERROR_Calib: ERROR_Calib ;
+  ERROR_Ident: ERROR_Ident ;
+  Flag_Inconsistency: Flag_Inconsistency ;
+  IBS_VoltWakeup: IBS_VoltWakeup ;
+  I_BATT: I_BATT ;
+  I_RANGE: I_RANGE ;
+  Q_Charge: Q_Charge ;
+  Q_Discharge: Q_Discharge ;
+  Resp_Error: Resp_Error ;
+  SOC: SOC ;
+  SOCWU: SOCWU ;
+  SOCWU_Ena: SOCWU_Ena ;
+  SOCWU_Sts: SOCWU_Sts ;
+  SOCWU_Treshold: SOCWU_Treshold ;
+  SOC_STATE: SOC_STATE ;
+  SOH: SOH ;
+  SOH_STATE: SOH_STATE ;
+  Status_Current: Status_Current ;
+  Status_Temp: Status_Temp ;
+  Status_Voltage: Status_Voltage ;
+  T_BATT: T_BATT ;
+  U_BATT: U_BATT ;
+  VoltageWU_Ena: VoltageWU_Ena ;
+  VoltageWU_Treshold: VoltageWU_Treshold ;
+}
